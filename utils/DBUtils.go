@@ -8,7 +8,7 @@ import (
 )
 
 type MysqlClient struct {
-	db              *sql.DB
+	Db              *sql.DB
 	connMaxLifeTime time.Duration //最大连接周期，超过连接时间则关闭连接
 	maxConns        int           //最大连接数
 	maxIdleConns    int           //最大闲置连接数
@@ -69,6 +69,6 @@ func (mc *MysqlClient) Init() error {
 		db.SetMaxIdleConns(mc.maxIdleConns)
 	}
 
-	mc.db = db
+	mc.Db = db
 	return nil
 }

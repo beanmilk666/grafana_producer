@@ -73,10 +73,8 @@ func sendMonitorDataFloat(value float64, metric string) {
 	hostName, _ := os.Hostname()
 	now := time.Now().UnixNano()
 	timeStr := time.Unix(now/1e9, 0).Format("2006-01-02 15:04:05") + fmt.Sprintf(".%03d", now%1e9/1e6)
-	fmt.Println(timeStr)
 
 	msg := fmt.Sprintf(format, timeStr, metric, hostName, value)
-	fmt.Println(msg)
 
 	json := []byte(msg)
 	resp, httpErr := http.Post(monitorInfo.Url, "application/json", bytes.NewBuffer(json))
