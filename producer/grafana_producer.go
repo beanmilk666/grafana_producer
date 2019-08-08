@@ -3,12 +3,12 @@ package main
 import (
 	"fmt"
 	"github.com/c4pt0r/ini"
-	"grafana_producer"
+	"grafana_producer/utils"
 	"net/http"
 )
 
 var passInfo pass
-var mysqlClient *grafana_producer.MysqlClient
+var mysqlClient *utils.MysqlClient
 
 //连接信息
 type pass struct {
@@ -28,12 +28,12 @@ func main() {
 		return
 	}
 
-	//mysqlClient = grafana_producer.NewMysqlClient(passInfo.username, passInfo.password, passInfo.network,
+	//mysqlClient = utils.NewMysqlClient(passInfo.username, passInfo.password, passInfo.network,
 	//	passInfo.server, passInfo.port, passInfo.database)
 	//mysqlClient.SetConnMaxLifeTime(time.Second * 100)
 	//mysqlClient.SetMaxConns(100)
 	//mysqlClient.SetMaxIdleConns(20)
-
+	//
 	//if err = mysqlClient.Init(); nil != err {
 	//	fmt.Printf("Open mysql database failed,err:%v\n", err)
 	//	return

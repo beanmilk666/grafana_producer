@@ -1,4 +1,4 @@
-package grafana_producer
+package utils
 
 import (
 	"database/sql"
