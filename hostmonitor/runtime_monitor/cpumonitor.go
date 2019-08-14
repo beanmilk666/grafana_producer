@@ -48,7 +48,7 @@ func GetProcessCpuRateByPid(pid string) float64 {
 //获取主机CPU占用率
 func GetHostCpuRate() float64 {
 	idle0, total0 := getHostCpuSample()
-	time.Sleep(3 * time.Second)
+	time.Sleep(500 * time.Millisecond)
 	idle1, total1 := getHostCpuSample()
 	idleTicks := float64(idle1 - idle0)
 	totalTicks := float64(total1 - total0)
