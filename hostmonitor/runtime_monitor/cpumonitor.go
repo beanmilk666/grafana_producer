@@ -93,7 +93,7 @@ func GetProcessCpuRateByPNameInvert(pName string, invertKeyWord string) float64 
 			debug.PrintStack()
 		}
 	}()
-	shell := "ps -ef | grep \"" + pName + "\" | grep -v grep | grep -v" + invertKeyWord + "| awk '{print $2}'"
+	shell := "ps -ef | grep \"" + pName + "\" | grep -v grep | grep -v " + invertKeyWord + "| awk '{print $2}'"
 	cmd := exec.Command("/bin/bash", "-c", shell)
 	bytes, err := cmd.Output()
 	if nil != err {

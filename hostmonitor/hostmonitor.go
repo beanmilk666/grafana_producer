@@ -17,8 +17,10 @@ var monitorInfo MonitorInfo
 
 //监视配置信息
 type MonitorInfo struct {
-	Url           string
-	HostCpuMetric string
+	Url              string
+	HostCpuMetric    string
+	MysqlCpuMetric   string
+	GrafanaCpuMetric string
 }
 
 func main() {
@@ -46,8 +48,12 @@ func monitor() {
 	for {
 		select {
 		case <-timeTick30:
-			cpuRate := runtime_monitor.GetHostCpuRate()
-			go sendMonitorDataFloat(cpuRate, monitorInfo.HostCpuMetric)
+			hostCpuRate := runtime_monitor.GetHostCpuRate()
+			go sendMonitorDataFloat(hostCpuRate, monitorInfo.HostCpuMetric)
+			mysqlCpuRate := runtime_monitor.GetProcessCpuRateByPNameInvert("mysqld", "mysqld_safe")
+			go sendMonitorDataFloat(mysqlCpuRate, monitorInfo.MysqlCpuMetric)
+			grafanaCpuRate := runtime_monitor.GetProcessCpuRateByPName("grafana-server")
+			go sendMonitorDataFloat(grafanaCpuRate, monitorInfo.GrafanaCpuMetric)
 		}
 	}
 }
@@ -94,6 +100,8 @@ func loadConf() error {
 
 	url := conf.String("Basic", "url", "")
 	hostCpuMetric := conf.String("Metric", "HostCpuMetric", "")
+	mysqlCpuMetric := conf.String("Metric", "MysqlCpuMetric", "")
+	grafanaCpuMetric := conf.String("Metric", "GrafanaCpuMetric", "")
 
 	if err := conf.Parse(); nil != err {
 		return err
@@ -101,6 +109,8 @@ func loadConf() error {
 
 	monitorInfo.Url = *url
 	monitorInfo.HostCpuMetric = *hostCpuMetric
+	monitorInfo.MysqlCpuMetric = *mysqlCpuMetric
+	monitorInfo.GrafanaCpuMetric = *grafanaCpuMetric
 
 	return nil
 }
