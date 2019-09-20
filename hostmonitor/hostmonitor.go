@@ -52,8 +52,8 @@ func monitor() {
 			go sendMonitorDataFloat(hostCpuRate, monitorInfo.HostCpuMetric)
 			mysqlCpuRate := runtime_monitor.GetProcessCpuRateByPNameInvert("mysqld", "mysqld_safe")
 			go sendMonitorDataFloat(mysqlCpuRate, monitorInfo.MysqlCpuMetric)
-			grafanaCpuRate := runtime_monitor.GetProcessCpuRateByPName("grafana-server")
-			go sendMonitorDataFloat(grafanaCpuRate, monitorInfo.GrafanaCpuMetric)
+			//grafanaCpuRate := runtime_monitor.GetProcessCpuRateByPName("grafana-server")
+			//go sendMonitorDataFloat(grafanaCpuRate, monitorInfo.GrafanaCpuMetric)
 		}
 	}
 }
